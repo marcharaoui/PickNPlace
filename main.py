@@ -5,15 +5,9 @@ from picknplace import PickNPlace
 import time
 import argparse
 
-# ** Petite note à prendre en compte **
-# Le cube fait 0.04m en X,Y,Z. Donc sont point central est (0.02, 0.02, 0.02). 
-# Le plus important à noter c'est sa hauteur (axe Z si je me trompe pas) car
-# il faut que le TCP du robot soit bien centré à sa hauteur donc une chose est sûre :
-# Si tout est au même niveau, le robot doit être à la hauteur 0.02m pour gripper et pour déposer.
-
 ### Constants ###
-IP_ADDRESS = "192.168.1.21" # "localhost"
-READ_FREQUENCY = 2 # every 500 ms
+IP_ADDRESS = "" # TODO: add ip
+READ_FREQUENCY = 2
 
 if __name__ == "__main__":
 

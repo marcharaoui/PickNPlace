@@ -23,12 +23,10 @@ def list_to_setp(sp, list):
     return sp
 
 ### Robot configs ###
-ROBOT_HOST = "..." #! insert ip of the robot or ursim
+ROBOT_HOST = "..." #TODO: insert ip of the robot or ursim
 ROBOT_PORT = 30004
 config_filename = "configuration.xml"
 logging.getLogger().setLevel(logging.INFO)
-
-# keep_running = True
 
 conf = rtde_config.ConfigFile(config_filename)
 state_names, state_types = conf.get_recipe("state") # Define recipe to access robot's output (joints, tcp, actual states, etc)
@@ -86,32 +84,33 @@ pnp.pick()
 pnp.goto(drop_zone)
 pnp.place(drop_zone, state.actual_TCP_pose)
 
-# while True:
-#     print('Waiting for movej() to finish')
-#     state = con.receive()
-#     con.send(watchdog)
-#     if state.output_bit_registers0_to_31 == False:
-#         print('Proceeding to mode 2\n')
-#         break
+# Continue in loop?
+activateLoop = False
 
-
-# ### Control loop ###
-# while True:
-#     # receive the current state
-#     state = con.receive()
-#     state.actual_TCP_pose() # read position and orientation of the robot
-
-#     if state is None:
-#         break
-
-#     if state.output_int_register_0 != 0:
-#         list_to_setp(setp, drop_zone)
+if activateLoop:
+    while True:
+        print('Waiting for movej() to finish')
+        state = con.receive()
+        con.send(watchdog)
+        if state.output_bit_registers0_to_31 == False:
+            print('Proceeding to mode 2\n')
+            break
         
-#         con.send(setp) # send new setpoint
+    ### Control loop ###
+    while True:
+        # receive the current state
+        state = con.receive()
+        state.actual_TCP_pose() # read position and orientation of the robot
 
+        if state is None:
+            break
 
-#     # kick watchdog
-#     con.send(watchdog)
+        if state.output_int_register_0 != 0:
+            list_to_setp(setp, drop_zone)            
+            con.send(setp) # send new setpoint
+
+        # kick watchdog
+        con.send(watchdog)
 
 con.send_pause()
 con.disconnect()

@@ -1,2 +1,2 @@
 # PickNPlace
-Pick and place using rtde
+Pick and place using rtde / ur-rtde

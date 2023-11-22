@@ -19,22 +19,17 @@ class PickNPlace:
     def pick(self, pose):
         """ This function is used to grab and object """
         # check if actual_pose and drop_zone are the same (or very close)
-        # if true: grip
-        # else: move until contact ?
-        
         if abs(np.array(self.rtde_r.getActualQ()) - np.array(pose)) < self.eps:
             # Activate gripper (grab cube)
             self.gripper.close()
             time.sleep(1)
         else:
-            # move to contact
+            # TODO: add "move to contact" function
             pass
 
     def place(self, pose):
         """ This function is used to place to grab and object """
         # check if actual_pose and drop_zone are the same (or very close)
-        # if true: drop
-        # else: raise "did not drop because not at drop zone"
         if abs(np.array(self.rtde_r.getActualQ()) - np.array(pose)) < self.eps:
             # Open gripper
             self.gripper.open()
@@ -46,14 +41,14 @@ class PickNPlace:
         """ This function is used to go to a desired position """
         if mvmt == "moveJ":
             print("Using moveJ function")
-            self.rtde_c.moveJ(get_inverse_kin(desired_pose), 1, 1) # ToDo: check real fonction of inverse kinematics
+            self.rtde_c.moveJ(get_inverse_kin(desired_pose), 1, 1)
         elif mvmt == "moveL":
             print("Using moveL function")
             self.rtde_c.moveL(desired_pose, 1, 1)
         elif mvmt == "servoJ":
             print("Using servoJ function")
-            self.rtde_c.servoJ(get_inverse_kin(desired_pose), 1, 1) # ToDo: check real fonction of inverse kinematics
+            self.rtde_c.servoJ(get_inverse_kin(desired_pose), 1, 1)
         elif mvmt == "gripper":
-            self.gripper.move_and_wait_for_pos(255, 255, 255) # ToDo: change values here
+            self.gripper.move_and_wait_for_pos(255, 255, 255) # TODO: change values here
             log_info(self.gripper) 
         

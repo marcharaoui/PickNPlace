@@ -4,7 +4,7 @@ import math
 import time
 
 rtde_frequency = 500.0
-rtde_c = rtde_control.RTDEControlInterface("", rtde_frequency) # add ip
+rtde_c = rtde_control.RTDEControlInterface("", rtde_frequency) # TODO: add ip
 blend_1 = 0.0
 blend_2 = 0.02
 blend_3 = 0.0
@@ -18,6 +18,6 @@ path = [pos1, pos2, pos3]
 rtde_c.moveL(path)
 
 # Read values
-rtde_r = rtde_receive.RTDEReceiveInterface("") # ToDo : add ip
+rtde_r = rtde_receive.RTDEReceiveInterface("") # TODO : add ip
 actual_q = rtde_r.getActualQ()
 print(actual_q)
