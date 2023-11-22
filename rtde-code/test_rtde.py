@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# ToDO: args to choose values of variables such as poses, time per output, etc
+# TODO: args to choose values of variables such as poses, time per output, etc
 
 ### Imports ###
 import sys
@@ -47,7 +47,7 @@ print("Robot connected")
 con.get_controller_version()
 
 ### Setup recipes ###
-TIME = 0.5 #seconds
+TIME = 0.5 
 FREQUENCY = 1/TIME # Read data 
 con.send_output_setup(state_names, state_types, frequency=FREQUENCY) # Receive output from the robot: every X seconds, get values 
 setp = con.send_input_setup(setp_names, setp_types)
@@ -69,7 +69,7 @@ if not con.send_start():
 
 # Setpoints to move the robot to
 start_pose = [-0.12, -0.43, 0, 0, 3.11, 0.04] # box's init pose # (x, y, z, r_x, r_y, r_z) 
-drop_zone = [-0.12, -0.51, 0, 0, 3.11, 0.04] # box's drop zone (r_z axis is flipped 180 degre)
+drop_zone = [0.32, -0.51, 1, 0, 3.11, 0.52]
 
 state = con.receive()
 print(state.actual_TCP_pose) # read position and orientation of the robot
